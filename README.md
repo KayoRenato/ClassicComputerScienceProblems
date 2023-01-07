@@ -9,4 +9,3 @@
         - Unbreakable Encryption
         - Calculating PI
         - Hanoi Towers
-        - Real Application
