@@ -5,6 +5,7 @@ from heapq import heappush, heappop
 
 T = TypeVar("T")
 
+
 def linear_contains(iterable: Iterable[T], key: T) -> bool:
     for item in iterable:
         if item == key:
@@ -14,17 +15,18 @@ def linear_contains(iterable: Iterable[T], key: T) -> bool:
 
 C = TypeVar("C", bound="Comparable")
 
+
 class Comparable(Protocol):
 
     def __eq__(self, other: any) -> bool:
         ...
-    
+
     def __lt__(self: C, other: C) -> bool:
-       ...
-    
+        ...
+
     def __gt__(self: C, other: C) -> bool:
         return (not self < other) and self != other
-    
+
     def __le__(self: C, other: C) -> bool:
         return self < other or self == other
 
@@ -45,7 +47,26 @@ def binary_contains(sequence: Sequence[C], key: C) -> bool:
             return True
     return False
 
+
+class Stack(Generic[T]):
+    def __init__(self) -> None:
+        self._container: List[T] = []
+
+    @property
+    def empty(self) -> bool:
+        return not self._container
+
+    def push(self, item: T) -> None:
+        self._container.append(item)
+
+    def pop(self) -> T:
+        return self._container.pop()
+
+    def __repr__(self) -> str:
+        return repr(self._container)
+
+
 if __name__ == "__main__":
     print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5))
     print(binary_contains(["a", "d", "e", "f", "z"], "f"))
-    print(binary_contains(["john", "mark", "ronald", "sarah"],"sheila"))
+    print(binary_contains(["john", "mark", "ronald", "sarah"], "sheila"))
