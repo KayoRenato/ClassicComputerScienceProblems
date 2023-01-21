@@ -1,6 +1,7 @@
 # Classic Computer Science Problems
+
 **1. Chapter 01 - Small problems**
-    
+
     Classic problems of recursivity and memoization and bits manipulation.
     Among the issues addressed in this chapter are the following:
     
@@ -19,3 +20,5 @@
         - Depth-first search
         - Breadth-first search
         - A* search
+
+**3. Chapter 03 - Satisfaction and restriction problems**
