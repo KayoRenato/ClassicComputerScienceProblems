@@ -76,6 +76,40 @@ class Node(Generic[T]):
     def __lt__(self, other: Node) -> bool:
         return (self.cost + self.heuristic) < (other.cost + other.heuristic)
 
+    def dfs(initial: T, goal_test: Callable[[T], bool], successors: Callable[[T], List[T]]) -> Optional[Node[T]]:
+
+        # corresponding local not visited
+        frontier: Stack[Node[T]] = Stack()
+        frontier.push(Node(initial, None))
+
+        # continuing search when have more local to explore
+        while not frontier.empty:
+            current_node: Node[T] = frontier.pop()
+            current_state: T = current_node.state
+
+            # if find out an object, finish
+            if goal_test(current_state):
+                return current_node
+
+            # check where to go next unexplored local
+            for child in successors(current_state):
+                if child in explored:  # ignored child already explored
+                    continue
+                explored.add(child)
+                frontier.push(Node(child, current_node))
+        return None  # Check all places, and we did not reach the goal
+
+    def node_to_path(node: Node[T]) -> List[T]:
+        path: List[T] = [node.state]
+
+        # Work in reverse orientation, from end to beginning.
+        while node.parent is not None:
+            node = node.parent
+            path.append(node.parent.state)
+        path.reverse()
+        return path
+
+
 if __name__ == "__main__":
     print(linear_contains([1, 5, 15, 15, 15, 15, 20], 5))
     print(binary_contains(["a", "d", "e", "f", "z"], "f"))
